@@ -200,7 +200,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
 
    // ****************Part 1. Accessing some trigger information ************* 
    bool passHLT_IsoMu27(false);
-   bool passHLT_Mu3_PFJet200DeepCSV_1p59(false), passHLT_Mu3_L1SingleJet180(false), passHLT_PFJet200CSV_1p5(false);   
+   bool passHLT_Mu3_PFJet200DeepCSV_1p59(false), passHLT_Mu3_L1SingleJet180(false), passHLT_PFJet200DeepCSV_1p59(false);   
 
    //Accessing trigger bits:
    //This works in both RAW, AOD or MINIAOD 
@@ -221,7 +221,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
      }
    }
    //Exercise 1: 
-   //Clone and *then* modify the code above in order to save the decision of your customized HLT menu in the booleans passHLT_Mu3_PFJet200DeepCSV_1p59, passHLT_Mu3_L1SingleJet180, passHLT_PFJet200CSV_1p5
+   //Clone and *then* modify the code above in order to save the decision of your customized HLT menu in the booleans passHLT_Mu3_PFJet200DeepCSV_1p59, passHLT_Mu3_L1SingleJet180, passHLT_PFJet200DeepCSV_1p59
    //Do not directly edit the code above as you will also need the use the original HLT_IsoMu27 decision later on.
 
    //Solution: 
@@ -237,7 +237,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
 	 //	 cout << "Passed path: " << TrigPath<<endl;
 	 if(TrigPath.Index("HLT_Mu3_PFJet200DeepCSV_1p59_v") >=0) passHLT_Mu3_PFJet200DeepCSV_1p59=true; 
 	 if(TrigPath.Index("HLT_Mu3_L1SingleJet180_v") >=0)passHLT_Mu3_L1SingleJet180=true;
-	 if(TrigPath.Index("HLT_PFJet200CSV_1p5_v") >=0)passHLT_PFJet200CSV_1p5=true;
+	 if(TrigPath.Index("HLT_PFJet200DeepCSV_1p59_v") >=0)passHLT_PFJet200DeepCSV_1p59=true;
 	 //Notice the special syntax: since the path version can change during data taking one only looks for the string "HLT_IsoMu27_v"
        }
      }
@@ -365,7 +365,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
    if(passHLT_Mu3_PFJet200DeepCSV_1p59) h_mu3pfjet200deepcsv1p59_vs_nbjetspt200_num->Fill(nbjetspt200);
    }
 
-   if(passHLT_PFJet200CSV_1p5){
+   if(passHLT_PFJet200DeepCSV_1p59){
    //Effcy vs leading muon pt:
    h_mu3pfjet200deepcsv1p59_vs_leadingmuonpt_den->Fill(leadingmuonpt);
    if(passHLT_Mu3_PFJet200DeepCSV_1p59) h_mu3pfjet200deepcsv1p59_vs_leadingmuonpt_num->Fill(leadingmuonpt);
@@ -375,7 +375,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
    
    //Solution: Add the following conditions before filling the histos (both num and den):
    //For the jet related effcies: passHLT_IsoMu27 && leadingmuonpt>25 (to be on the plateau of the muon leg)
-   //For the muon leg:  passHLT_PFJet200CSV_1p5 (to be on the plateau of the jet leg)
+   //For the muon leg:  passHLT_PFJet200DeepCSV_1p59 (to be on the plateau of the jet leg)
 
 
    
@@ -392,8 +392,8 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
    //Answer: You require only one b jet at HLT, if you have several offline, you have more chances to pass your trigger ! 
    
    //-Is the efficiency measured vs muon pt unbiased when running on a SingleMuon dataset?
-   //Answer: NO ! All events in the muon dataset are required to fire a muon trigger, i.e. they do contain a HLT by definition !!
-   //To properly measure the muon leg efficiency, you would need to work with the dataset in which HLT_PFJet200CSV_1p5 was introduced (probably JetHT) 
+   //Answer: NO ! All events in the muon dataset are required to fire a muon trigger, i.e. they do contain a HLT muon by definition !!
+   //To properly measure the muon leg efficiency, you would need to work with the dataset in which HLT_PFJet200DeepCSV_1p59 was introduced (probably JetHT) 
    //Take a look at the following file to get an less biased measurement of the effcy vs muon pt: /afs/cern.ch/work/l/lathomas/public/HLTTutorial_27Oct2017/OutputFiles/out_jetht_highstat.root 
    
    //This is a good example of a trigger where the efficiency can depend on your event content/kinematics and that should be manipulated with caution. 
