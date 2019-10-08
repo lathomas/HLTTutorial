@@ -112,3 +112,11 @@ There are six exercises:
  - Exercise 5: Check some efficiency plots similar to those obtained in ex 4 but with higher stats, study some interesting behaviours.
  - Exercise 6: Perform a measurement using Tag and Probe with dielectron events and access the HLT variables used in the various filters associated to a single electron path. One can process 1000 events in this exercise. 
 
+In exercises 4,5, 6 you will need to produce efficiency by dividing histograms stored in the output file (out.root). 
+```
+root -l out.root
+> demo->cd()
+> .L DivideHistos.C
+> .ls //Optional line to show all the histos in your root file
+>  DivideHistos(h_num,h_den) //First argument is the numerator histo, second is the denominator
+```
