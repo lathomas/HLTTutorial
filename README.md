@@ -21,6 +21,12 @@ Clone this repository, and compile (N.B. some unused variables in the code intro
 git clone https://github.com/lathomas/HLTTutorial.git
 USER_CXXFLAGS="-Wno-delete-non-virtual-dtor -Wno-error=unused-but-set-variable -Wno-error=unused-variable" scram b
 ```
+Move to HLTrigger/Configuration/test
+
+```
+cd HLTrigger/Configuration/test
+```
+
 Now, fetch the needed trigger configuration associated to the B-tagged Jet + soft muon path: 
 
 ```
