@@ -27,7 +27,7 @@ Now, fetch the needed trigger configuration associated to the B-tagged Jet + sof
 hltGetConfiguration --cff --offline /dev/CMSSW_10_6_0/GRun --paths HLTriggerFirstPath,HLTriggerFinalPath --unprescale > HLT_TutoEffcySession_cff.py
 hltGetConfiguration --cff /users/lathomas/HLTTuto2019/HLTTuto/V5   \
 --globaltag auto:run2_hlt_GRun   \
- --unprescale >> HLT_TutoEffcySession_cff.py
+--unprescale >> HLT_TutoEffcySession_cff.py
  ```
  You then need to modify HLT_TutoEffcySession_cff.py : search for these two lines, they appear twice in the config file. Comment out their second appearance (not the first one). 
  ```
