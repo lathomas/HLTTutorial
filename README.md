@@ -1,5 +1,6 @@
 # HLTTutorial
 
+## Setup
 Setup the release, import HLTrigger package, compile
 ```
 cmsrel CMSSW_10_6_1_patch3 
@@ -83,6 +84,31 @@ it and take a look at its content, for example by doing:
 ```
 edmDumpEventContent --regex HLT HLT2_HLT.root
 ```
+Test the code: 
+```
+cmsRun HLT2_HLT.py 
+```
+
+## Exercices
+
+All the code (and exercises) related to this tutorial is to be found in:
+https://github.com/lathomas/HLTTutorial/blob/master/TriggerAnalyzerRAWMiniAOD/plugins/TriggerAnalyzerRAWMiniAOD.cc
+
+You will need to modify this file and compile (in CMSSW_9_2_12/src). The exercises are inserted as comments in this EDAnalyzer. After each modification of the analyzer, do: 
+```
+cd $CMSSW_BASE/src
+USER_CXXFLAGS="-Wno-delete-non-virtual-dtor -Wno-error=unused-but-set-variable -Wno-error=unused-variable" scram b -j 6
+cd HLTrigger/Configuration/test
+cmsRun HLT2_HLT.py
+```
+
+There are six exercises: 
 
 
+ - Exercise 1: learn how to access the trigger decision (boolean) associated to any path (in RAW, AOD, MINIAOD).
+ - Exercise 2: learn how to access the trigger objects stored in MINIAOD.
+ - Exercise 3: learn how to access the trigger objects stored in RAW.
+ - Exercise 4: perform an efficiency measurement and define a proper denominator. NB: switch "maxEvents" to 10000 instead of 100 for exercise 4. (this may take some time...)
+ - Exercise 5: Check some efficiency plots similar to those obtained in ex 4 but with higher stats, study some interesting behaviours.
+ - Exercise 6: Perform a measurement using Tag and Probe with dielectron events and access the HLT variables used in the various filters associated to a single electron path. One can process 1000 events in this exercise. 
 
