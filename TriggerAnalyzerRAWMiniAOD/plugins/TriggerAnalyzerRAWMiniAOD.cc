@@ -287,15 +287,15 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
      double ptjet = jet->pt();
      double etajet = jet->eta();
      double phijet = jet->phi();
-     double csvjet = jet->bDiscriminator("pfCombinedInclusiveSecondaryVertexV2BJetTags");
+     double csvjet = jet->bDiscriminator("pfDeepCSVJetTags:probb")+ jet->bDiscriminator("pfDeepCSVJetTags:probbb");//cf https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
      //The next following lines just remove e/mu from (semi)leptonic ttbar. 
      if( jet->muonEnergyFraction() >0.7)continue;
      if( jet->electronEnergyFraction() >0.7)continue;
      
      if(abs( etajet)>2.4) continue; //Only consider jets in tracker acceptance since we want to do b tagging. 
-     if(csvjet>0.8484&& ptjet>leadingbjetpt) { leadingbjetpt = ptjet; leadingbjeteta =etajet; leadingbjetphi = phijet;} 
+     if(csvjet>0.4184&& ptjet>leadingbjetpt) { leadingbjetpt = ptjet; leadingbjeteta =etajet; leadingbjetphi = phijet;} 
      if(ptjet>250&& csvjet>highestcsv_jetpt250) { highestcsv_jetpt250 = csvjet;} 
-     if(csvjet>0.8484&& ptjet>200) { nbjetspt200++; } 
+     if(csvjet>0.4184&& ptjet>200) { nbjetspt200++; } 
    }
 
    
@@ -438,8 +438,12 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
    // should be replaced by: 
    // process.load('HLTrigger.Configuration.HLT_TutoEle35WPTight_cff')
    //The input files should be updated: 
-   //fileNames = cms.untracked.vstring('file:/afs/cern.ch/work/l/lathomas/public/HLTTutorial_27Oct2017/InputFiles/singleeleminiaod.root'),   
-   //secondaryFileNames = cms.untracked.vstring('file:/afs/cern.ch/work/l/lathomas/public/HLTTutorial_27Oct2017/InputFiles/singleeleraw_1.root')
+   //fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/data/Run2018D/EGamma/MINIAOD/22Jan2019-v2/70001/D8790A22-9BE2-624F-A1CC-6A4A7CAC82D7.root')
+   //secondaryFileNames = cms.untracked.vstring(
+   //                                         'root://cms-xrd-global.cern.ch//store/data/Run2018D/EGamma/RAW/v1/000/323/755/00000/F9080D12-2CDA-4F43-B7A9-C2F1D05E9C10.root', 
+   //                                         'root://cms-xrd-global.cern.ch//store/data/Run2018D/EGamma/RAW/v1/000/323/755/00000/72D435E1-78D4-8047-92BD-3553117A5594.root',                       
+   //                                         'root://cms-xrd-global.cern.ch//store/data/Run2018D/EGamma/RAW/v1/000/323/755/00000/266F4E2C-B30A-724E-9183-AD9368A10D51.root' 
+   //)     
 
    //Make the above distributions (e.g. for sietaieta) only for probes passing the triggers and observe that the distributions are indeed truncated at the cut values reported in the HLT config file (HLTrigger/Configuration/python/HLT_TutoEle35WPTight_cff.py
 
