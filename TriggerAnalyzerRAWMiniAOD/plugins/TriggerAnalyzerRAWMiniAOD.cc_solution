@@ -199,7 +199,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
 
 
    // ****************Part 1. Accessing some trigger information ************* 
-   bool passHLT_IsoMu27(false);
+   bool passHLT_IsoMu24(false);
    bool passHLT_Mu3_PFJet200DeepCSV_1p59(false), passHLT_Mu3_L1SingleJet180(false), passHLT_PFJet200DeepCSV_1p59(false);   
 
    //Accessing trigger bits:
@@ -215,14 +215,14 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
        if (trigResults.product()->accept(i_Trig)) {
 	 TString TrigPath =trigName.triggerName(i_Trig);
 	 //	 cout << "Passed path: " << TrigPath<<endl;
-	 if(TrigPath.Index("HLT_IsoMu27_v") >=0) passHLT_IsoMu27=true; 
-	 //Notice the special syntax: since the path version can change during data taking one only looks for the string "HLT_IsoMu27_v"
+	 if(TrigPath.Index("HLT_IsoMu24_v") >=0) passHLT_IsoMu24=true; 
+	 //Notice the special syntax: since the path version can change during data taking one only looks for the string "HLT_IsoMu24_v"
        }
      }
    }
    //Exercise 1: 
    //Clone and *then* modify the code above in order to save the decision of your customized HLT menu in the booleans passHLT_Mu3_PFJet200DeepCSV_1p59, passHLT_Mu3_L1SingleJet180, passHLT_PFJet200DeepCSV_1p59
-   //Do not directly edit the code above as you will also need the use the original HLT_IsoMu27 decision later on.
+   //Do not directly edit the code above as you will also need the use the original HLT_IsoMu24 decision later on.
 
    //Solution: 
    edm::Handle<edm::TriggerResults> trigResultsHLT2;
@@ -238,7 +238,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
 	 if(TrigPath.Index("HLT_Mu3_PFJet200DeepCSV_1p59_v") >=0) passHLT_Mu3_PFJet200DeepCSV_1p59=true; 
 	 if(TrigPath.Index("HLT_Mu3_L1SingleJet180_v") >=0)passHLT_Mu3_L1SingleJet180=true;
 	 if(TrigPath.Index("HLT_PFJet200DeepCSV_1p59_v") >=0)passHLT_PFJet200DeepCSV_1p59=true;
-	 //Notice the special syntax: since the path version can change during data taking one only looks for the string "HLT_IsoMu27_v"
+	 //Notice the special syntax: since the path version can change during data taking one only looks for the string "HLT_IsoMu24_v"
        }
      }
    }
@@ -349,7 +349,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
    //We can now fill some histograms (numerator and denominator to study the efficiency of our favourite path).
    //Here we factorize the muon and jet legs and measure their efficiencies separately
     
-   if(passHLT_IsoMu27 && leadingmuonpt>30){
+   if(passHLT_IsoMu24 && leadingmuonpt>25){
    //Effcy vs pt of the leading b jet: 
    h_mu3pfjet200deepcsv1p59_vs_leadbjetpt_den->Fill(leadingbjetpt);
    if(passHLT_Mu3_PFJet200DeepCSV_1p59) h_mu3pfjet200deepcsv1p59_vs_leadbjetpt_num->Fill(leadingbjetpt);
@@ -374,7 +374,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
    //For this exercise, you need to run on at least 10k events in order to start to see the jet turn on. 
    
    //Solution: Add the following conditions before filling the histos (both num and den):
-   //For the jet related effcies: passHLT_IsoMu27 && leadingmuonpt>25 (to be on the plateau of the muon leg)
+   //For the jet related effcies: passHLT_IsoMu24 && leadingmuonpt>25 (to be on the plateau of the muon leg)
    //For the muon leg:  passHLT_PFJet200DeepCSV_1p59 (to be on the plateau of the jet leg)
 
 

@@ -199,7 +199,7 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
 
 
    // ****************Part 1. Accessing some trigger information ************* 
-   bool passHLT_IsoMu27(false);
+   bool passHLT_IsoMu24(false);
    bool passHLT_Mu3_PFJet200DeepCSV_1p59(false), passHLT_Mu3_L1SingleJet180(false), passHLT_PFJet200DeepCSV_1p59(false);   
 
    //Accessing trigger bits:
@@ -215,14 +215,14 @@ TriggerAnalyzerRAWMiniAOD::analyze(const edm::Event& iEvent, const edm::EventSet
        if (trigResults.product()->accept(i_Trig)) {
 	 TString TrigPath =trigName.triggerName(i_Trig);
 	 //	 cout << "Passed path: " << TrigPath<<endl;
-	 if(TrigPath.Index("HLT_IsoMu27_v") >=0) passHLT_IsoMu27=true; 
-	 //Notice the special syntax: since the path version can change during data taking one only looks for the string "HLT_IsoMu27_v"
+	 if(TrigPath.Index("HLT_IsoMu24_v") >=0) passHLT_IsoMu24=true; 
+	 //Notice the special syntax: since the path version can change during data taking one only looks for the string "HLT_IsoMu24_v"
        }
      }
    }
    //Exercise 1: 
    //Clone and *then* modify the code above in order to save the decision of your customized HLT menu in the booleans passHLT_Mu3_PFJet200DeepCSV_1p59, passHLT_Mu3_L1SingleJet180, passHLT_PFJet200DeepCSV_1p59
-   //Do not directly edit the code above as you will also need the use the original HLT_IsoMu27 decision later on.
+   //Do not directly edit the code above as you will also need the use the original HLT_IsoMu24 decision later on.
 
    
 
